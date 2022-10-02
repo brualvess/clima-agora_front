@@ -1,8 +1,33 @@
 
+import React from 'react';
 import styled from 'styled-components';
-
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { useState } from 'react';
 
 export default function Cadastro() {
+    let navigate = useNavigate()
+
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
+    const [confirmarSenha, setConfirmarSenha] = useState('')
+
+    function cadastrar() {
+        axios.post('http://localhost:5000/cadastro', {
+            email: email,
+            senha: senha,
+            confirmarSenha: confirmarSenha
+        }).then(() => {
+            alert("Usuário cadastrado com sucesso!")
+            navigate("/login")
+        }).catch(() => {
+            alert("Preencha os campos corretamente")
+            setEmail('')
+            setSenha('')
+            setConfirmarSenha('')
+        })
+    }
+
     return (
         <Pagina>
             <Logo>
@@ -11,11 +36,20 @@ export default function Cadastro() {
             </Logo>
             <Formulario>
 
-                <input type='email' placeholder="E-mail" />
-                <input type='password' placeholder="Senha" />
-                <input type='password' placeholder="Confirme a senha" />
-                <Botao>
-                    <h2>Entrar</h2>
+                <input
+                    type='email' placeholder="E-mail"
+                    value={email} onChange={item => setEmail(item.target.value)}
+                />
+                <input
+                    type='password' placeholder="Senha"
+                    value={senha} onChange={item => setSenha(item.target.value)}
+                />
+                <input
+                    type='password' placeholder="Confirme a senha"
+                    value={confirmarSenha} onChange={item => setConfirmarSenha(item.target.value)}
+                />
+                <Botao onClick={cadastrar}>
+                    <h2>Cadastrar</h2>
                 </Botao>
                 <h3>Possui uma conta? Entre agora!</h3>
             </Formulario>
