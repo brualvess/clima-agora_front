@@ -1,6 +1,27 @@
+import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { useState } from 'react';
 
 export default function Login() {
+    let navigate = useNavigate()
+
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
+
+    function logar() {
+        axios.post('http://localhost:5000/login', {
+            email: email,
+            senha: senha,
+        }).then(() => {
+            navigate("/")
+        }).catch(() => {
+            alert("Preencha os campos corretamente")
+            setEmail('')
+            setSenha('')
+        })
+    }
     return (
         <Pagina>
             <Logo>
@@ -8,10 +29,16 @@ export default function Login() {
                 <ion-icon className='iconeLogo' name="partly-sunny"></ion-icon>
             </Logo>
             <Formulario>
-              
-                <input type='email' placeholder="E-mail" />
-                <input type='password' placeholder="Senha" />
-                <Botao>
+
+                <input
+                    type='email' placeholder="E-mail"
+                    value={email} onChange={item => setEmail(item.target.value)}
+                />
+                <input
+                    type='password' placeholder="Senha"
+                    value={senha} onChange={item => setSenha(item.target.value)}
+                />
+                <Botao onClick={logar}>
                     <h2>Entrar</h2>
                 </Botao>
                 <h3>Primeira vez ? Cadastre-se!</h3>
