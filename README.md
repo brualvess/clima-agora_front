@@ -6,7 +6,7 @@ Para acaessar o reṕositório do back-end desse projeto [clique aqui](https://g
 ## Rotas
 
 Na rota '/ ' é possível visualizar a tela de login, caso não tenha uma conta cadastrada poderá efetuar um cadastro na rota '/cadastro'. 
-Após concluir o login será redirecionado automaticamente para rota '/clima' onde está as informações da cidade.
+Após concluir o login será redirecionado automaticamente para rota '/clima' onde estão as informações da cidade.
 
 
 
