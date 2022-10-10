@@ -15,7 +15,7 @@ export default function Login() {
             email: email,
             senha: senha,
         }).then(() => {
-            navigate("/")
+            navigate("/clima")
         }).catch(() => {
             alert("Preencha os campos corretamente")
             setEmail('')
@@ -41,7 +41,7 @@ export default function Login() {
                 <Botao onClick={logar}>
                     <h2>Entrar</h2>
                 </Botao>
-                <h3>Primeira vez ? Cadastre-se!</h3>
+                <h3  onClick={()=>navigate("/cadastro")}>Primeira vez ? Cadastre-se!</h3>
             </Formulario>
 
         </Pagina>

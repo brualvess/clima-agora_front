@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 
-export default function Menu() {
+export default function Menu(props) {
+    let { pesquisaCidade, setPesquisaCidade, pesquisarCidade } = props
     return (
         <>
             <Topo>
@@ -10,8 +11,11 @@ export default function Menu() {
                     <ion-icon className='iconeLogo' name="partly-sunny"></ion-icon>
                 </Logo>
                 <PesquisaCidade>
-                    <input type='cidade' placeholder="Digite uma cidade"></input>
-                    <ion-icon name="search"></ion-icon>
+                    <input type='cidade' placeholder="Digite uma cidade"
+                        value={pesquisaCidade} onChange={item => setPesquisaCidade(item.target.value)}
+
+                    />
+                    <ion-icon name="search" onClick={pesquisarCidade}></ion-icon>
                 </PesquisaCidade>
                 <ion-icon className='favoritos' name="bookmarks"></ion-icon>
 
@@ -23,7 +27,7 @@ export default function Menu() {
 }
 const Topo = styled.div`
 display: flex;
-/* justify-content: center; */
+justify-content: center;
 justify-content: space-between;
 background-color: black;
 width: 100%;
@@ -36,6 +40,7 @@ color: white;
 width: 3%;
 height: 25px;
 margin-top: 18px;
+
 }
 
 h1{
@@ -55,6 +60,7 @@ width: 25px;
 height: 25px;
 margin-top: 18px;
 }
+
 `
 const PesquisaCidade = styled.div`
 display: flex;
@@ -79,6 +85,7 @@ font-weight: 400;
 font-size: 19.976px;
 align-self: center;
 }
+
 `
 
 

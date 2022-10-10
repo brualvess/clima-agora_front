@@ -19,7 +19,7 @@ export default function Cadastro() {
             confirmarSenha: confirmarSenha
         }).then(() => {
             alert("Usuário cadastrado com sucesso!")
-            navigate("/login")
+            navigate("/")
         }).catch(() => {
             alert("Preencha os campos corretamente")
             setEmail('')
@@ -51,7 +51,7 @@ export default function Cadastro() {
                 <Botao onClick={cadastrar}>
                     <h2>Cadastrar</h2>
                 </Botao>
-                <h3>Possui uma conta? Entre agora!</h3>
+                <h3  onClick={()=>navigate("/")}>Possui uma conta? Entre agora!</h3>
             </Formulario>
 
         </Pagina>

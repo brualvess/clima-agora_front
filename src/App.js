@@ -10,9 +10,10 @@ export default function App() {
         <BrowserRouter>
             <GlobalStyle />
             <Routes>
-                <Route path="/" element={<PaginaInicial />} />
-                <Route path="/Login" element={<Login />} />
+                <Route path="/" element={<Login />} />
                 <Route path="/Cadastro" element={<Cadastro />} />
+                <Route path="/clima" element={<PaginaInicial />} />
+
             </Routes>
         </BrowserRouter>
     )
