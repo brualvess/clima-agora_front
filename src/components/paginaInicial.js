@@ -1,19 +1,63 @@
 import styled from 'styled-components';
+import axios from 'axios'
 import Menu from './Menu';
+import { useState, useEffect } from 'react';
 
-export default function PaginaHome() {
+
+function Home(props) {
+    let { cidade, sigla, texto, temperaturaMinima, temperaturaMaxima, data, imagem } = props
     return (
         <>
-        <Menu/>
-        <Pagina>
             <Container>
-                <h1>Brasília-DF</h1>
-                <h2>Sábado, 22 de outubro de 2022</h2>
-                <Imagem></Imagem>
-                <h3>Nublado</h3>
-                <h2 className='cidade'>22°C/23°C</h2>
+                <h1>{cidade}-{sigla}</h1>
+                <h2>{data}</h2>
+                <img src={imagem} alt='' />
+                <h3>{texto}</h3>
+                <h2 className='cidade'>{temperaturaMinima}°C/{temperaturaMaxima}°C</h2>
             </Container>
-            </Pagina>
+        </>
+    )
+}
+export default function PaginaHome() {
+    function pesquisar() {
+        const requisicao = axios.get(`http://localhost:5000/?cidade=${pesquisaCidade}`)
+
+        requisicao.then(resposta => setInformacoesPesquisa(resposta.data))
+    }
+    const [pesquisaCidade, setPesquisaCidade] = useState('Brasília')
+    const [informacoesPesquisa, setInformacoesPesquisa] = useState({})
+
+
+    useEffect(pesquisar, [pesquisaCidade])
+
+
+    let arrayTexto = ''
+    if (informacoesPesquisa.texto) {
+        const textoCidade = informacoesPesquisa.texto
+        arrayTexto = textoCidade.split(' ');
+    }
+    return (
+        <>
+
+            <Menu pesquisaCidade={pesquisaCidade} setPesquisaCidade={setPesquisaCidade} pesquisarCidade={pesquisar} />
+            {
+                (arrayTexto.includes('tempestade') || arrayTexto.includes('Tempestade') || arrayTexto.includes('chuva') || arrayTexto.includes('Chuva')) ?
+                    <Pagina>
+                        <Home
+                            cidade={informacoesPesquisa.cidade} sigla={informacoesPesquisa.sigla} texto={informacoesPesquisa.texto}
+                            temperaturaMinima={informacoesPesquisa.temperaturaMinima} temperaturaMaxima={informacoesPesquisa.temperaturaMaxima}
+                            data={informacoesPesquisa.data} imagem={'chuva.png'}
+                        />
+                    </Pagina>
+                    :
+                    <Pagina>
+                        <Home
+                            cidade={informacoesPesquisa.cidade} sigla={informacoesPesquisa.sigla} texto={informacoesPesquisa.texto}
+                            temperaturaMinima={informacoesPesquisa.temperaturaMinima} temperaturaMaxima={informacoesPesquisa.temperaturaMaxima}
+                            data={informacoesPesquisa.data} imagem={'sol.png'}
+                        />
+                    </Pagina>
+            }
         </>
 
     )
@@ -50,17 +94,18 @@ h2{
 h3{
     margin-top: 30px;
     font-family: 'Zen Kaku Gothic New';
-    font-size: 50px;
+    font-size: 20px;
     color: white;
+    text-align: center
 }
-
+img{
+  margin-top: 40px; 
+  border-radius: 100%;
+  overflow: hidden;
+  height: 196px;
+  width:37%;
+  margin-top: 40px;
+  
+}
 `
-const Imagem = styled.div`
-    border-radius: 100%;
-    overflow: hidden;
-    height: 190px;
-    width:35%;
-    background: white;
-    margin-top: 40px;
 
-`
